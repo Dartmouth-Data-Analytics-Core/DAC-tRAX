@@ -1,0 +1,4 @@
+A1 A sample1_trimmed.fastq.gz
+A2 A sample2_trimmed.fastq.gz
+B1 B sample3_trimmed.fastq.gz
+B2 B sample4_trimmed.fastq.gz

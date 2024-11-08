@@ -1,0 +1,4 @@
+sample1 SRR11713555_1.fastq.gz
+sample2	SRR11713556_1.fastq.gz
+sample3	SRR11713557_1.fastq.gz
+sample4	SRR11713558_1.fastq.gz
