@@ -2,6 +2,7 @@
 This pipeline has been adapted from the Lowe Lab (UCSC) by the Genomic Data Science Core (Dartmouth Hitchcock Medical Center). tRAX is a software pacakge built for in-depth analyses of tRNA-derived small RNAs (tDRs), mature tRNAs, and inference of RNA modification from high-throughput sequencing. Example data provided can be accessed from GEO accession GSE149989 (SRA accession SRP260297)
 `https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE149989`
 
+
 # Table of Contents
 - [Directories](#directories)
 - [Files](#files)
@@ -19,6 +20,8 @@ After successful repo cloning, you should have a folder called `code`, `example_
 1. `001_DATABASE_GENERATION.bash`
 2. `002_TRIMMING.bash`
 3. `003_MAPPING.bash`
+
+Note: Example data contains fastq files subsetted to the first 500 reads per file.
 
 Create a directory called `samples` in your working directory
 ``` bash
