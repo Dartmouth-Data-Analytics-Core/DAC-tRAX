@@ -1,19 +1,34 @@
-# tRAX Pipeline
-This pipeline has been adapted from the Lowe Lab (UCSC) by the Genomic Data Science Core (Dartmouth Hitchcock Medical Center). tRAX is a software pacakge built for in-depth analyses of tRNA-derived small RNAs (tDRs), mature tRNAs, and inference of RNA modification from high-throughput sequencing. Example data provided can be accessed from GEO accession GSE149989 (SRA accession SRP260297)
-`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE149989`
+# Dartmouth CQB-tRAX Pipeline
+Pipeline dapted from the Lowe Lab (UCSC) for analyses of tRNA-derived small RNAs (tDRs), mature tRNAs, and inference of RNA modification from high-throughput sequencing. 
 
 
 # Table of Contents
+- [Introduction](#introduction)
+- [Summary](#summary)
 - [Directories](#directories)
 - [Files](#files)
-- [Usage](#usage)
+- [Implementation](#implementation)
+
+## Introduction
+The CQB-tRAX pipeline is adapted from the original [tRAX pipeline from the Lowe Lab (UCSC)](https://github.com/UCSC-LoweLab/tRAX) to be compatible with the Dartmouth Discovery HPC. This pipeline supports the analysis of tDRs, mature-tRNAs and RNA modification for human (hg19, hg38), mouse (mm10), rat(rn6), yeast(sacCer3), and fly(dm6) genomes. This repository contains example data from the [GEO repository GSE149989](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150076): METTL1-mediated m7G tRNA modification (SRA accession SRP260297). The 4 samples included are subsetted to the first 500 reads per file. Required software can be installed using a [conda environment](https://docs.conda.io/en/latest/) with the enrionment file (config.yaml).
+
+
+
+## Summary
+The CQB-tRAX pipeline consists of three major steps implemented by 3 SLURM job scripts:
+1. Database building
+2. Adapter trimming with [CutAdapt](https://cutadapt.readthedocs.io/en/stable/) or [SeqPrep](https://github.com/jstjohn/SeqPrep)
+3. Mapping with [Bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and analysis with custom python and R scripts
+
+To run this pipeline you will need raw fastq files (either single or paired-end), a file outlining sample names (runfile.txt), a file outlining replicate information (repfie.txt) and a file specifying comparisons for diferntial expression analysis (design.txt)
+
 
 ## Directories
 To get started with the tRAX pipeline, clone this repository into your working directory.
 
 ``` bash
 # Run from within your working directory
-git clone https://github.com/...
+git clone https://github.com/Dartmouth-Data-Analytics-Core/tRAX
 ```
 
 After successful repo cloning, you should have a folder called `code`, `example_data`, and three bash scripts
@@ -83,7 +98,7 @@ nano runfile.txt
 ```
 A blank text editor window will open. You can now add your text according to the required formatting. Once finished, to close and save the file, hit control + X, and hit RETURN.
 
-# Usage
+# Implementation
 ## Database building
 The first step of the tRAX pipeline is building a tRNA database using files from gtRNAdb and genome assemblies. Currently, the tRAX pipeline supports human (hg19, hg19mito, mg38, hg38mito), mouse (mm10, mm10mito), rat (rn6), yeast(sacCer3), and fly (dm6). To run this script, you will need to edit two variables (required) as well as edit SBATCH header parameters (optional.)
 
