@@ -8,6 +8,8 @@ Pipeline dapted from the Lowe Lab (UCSC) for analyses of tRNA-derived small RNAs
 - [Directories](#directories)
 - [Files](#files)
 - [Implementation](#implementation)
+- [Contact](#contact)
+- [Citation](#citation)
 
 ## Introduction
 The CQB-tRAX pipeline is adapted from the original [tRAX pipeline](https://github.com/UCSC-LoweLab/tRAX) from the Lowe Lab (UCSC) to be compatible with the [Dartmouth Discovery HPC](https://rc.dartmouth.edu/discoveryhpc/). This pipeline supports the analysis of tDRs, mature-tRNAs and RNA modification for human (hg19, hg38), mouse (mm10), rat(rn6), yeast(sacCer3), and fly(dm6) genomes. This repository contains example data from the [GSE149989](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150076) (SRA accession SRP260297). The 4 samples included are subsetted to the first 500 reads per file. Required software can be installed using a [conda environment](https://docs.conda.io/en/latest/) with the enrionment file `config.yaml`
@@ -179,7 +181,7 @@ For Paired-end reads, the following files are created:
 4. `runname_sp.pdf`: Histogram summarizing the amount of merged, unmerged, and discarded reads
 5. `runname_sp.txt`: Data source for the histogram in `runname_sp.pdf`
 
-Additional parameters can be added for more complex trimming operations. Such options include:
+**Additional parameters can be added for more complex trimming operations. Such options include:**
 
 `--runname` = runname (required)
 Name used for output files
@@ -236,7 +238,7 @@ sbatch 003_MAPPING.bash
 ```
 NOTE: there are additional parameters which can be added to the script call.  If additional parameters must be added, the python call is located on lines 104-112 of the 003_MAPPING.bash script. Additional parameters are specified below:
 
-Options
+**Options**
 
 `--experimentname` = expname (required)
 Experiment name that will be used for results
@@ -298,7 +300,7 @@ python "$CODEDIR"/03_processsamples.py \
 ```
 This script generates a wide number of outputs and therefore manipulates directories to clean them up and organize them. You will notice in your working directory (upon successful script execution) the addition of a subdirectory named `Outputs`. Within `Outputs` you will find a subdirectory named after your `EXPERIMENTNAME`. This subdirectory contains multiple other subdirectories with multiple files in each. 
 
-Outputs:
+**Outputs:**
 
 `coverage_plots` (folder):
 Contains a coverage plot for each amino acid as well as a combined coverage plot.
@@ -329,5 +331,11 @@ Contains information and figures regarding the C, CC, CCA ending percentages.
 `Full_relative_summed_tRNA_mismatches.png` (file):
 A heatmap showing summed mismatches in one condition relative to the other for all iso-decoders grouped by amino acid family. 
 
+## Contact
+Contact & questions: Please address questions to DataAnalyticsCore@groups.dartmouth.edu or submit an issue in the GitHub repository.
 
+This pipeline was created with funds from the COBRE grant 1P20GM130454. If you use the pipeline in your own work, please acknowledge the pipeline by citing the grant number in your manuscript.
+
+## Citation
+Holmes AD, Howard JM, Chan PP, and Lowe TM. tRNA Analysis of eXpression (tRAX): A tool for integrating analysis of tRNAs, tRNA-derived small RNAs, and tRNA modifications. 2020. (submitted)
 
