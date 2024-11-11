@@ -34,7 +34,9 @@ git clone https://github.com/Dartmouth-Data-Analytics-Core/DAC-tRAX
 
 After successful repo cloning, you should have a folder called `code`, `example_data`, and three bash scripts
 **1.** `001_DATABASE_GENERATION.bash`
+
 **2.** `002_TRIMMING.bash`
+
 **3.** `003_MAPPING.bash`
 
 Create a directory called `samples` in your working directory
