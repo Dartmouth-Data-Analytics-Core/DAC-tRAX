@@ -10,7 +10,7 @@ Pipeline dapted from the Lowe Lab (UCSC) for analyses of tRNA-derived small RNAs
 - [Implementation](#implementation)
 
 ## Introduction
-The CQB-tRAX pipeline is adapted from the original [tRAX pipeline](https://github.com/UCSC-LoweLab/tRAX) from the Lowe Lab (UCSC) to be compatible with the [Dartmouth Discovery HPC](https://rc.dartmouth.edu/discoveryhpc/). This pipeline supports the analysis of tDRs, mature-tRNAs and RNA modification for human (hg19, hg38), mouse (mm10), rat(rn6), yeast(sacCer3), and fly(dm6) genomes. This repository contains example data from the [GEO repository GSE149989](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150076) (SRA accession SRP260297). The 4 samples included are subsetted to the first 500 reads per file. Required software can be installed using a [conda environment](https://docs.conda.io/en/latest/) with the enrionment file (config.yaml).
+The CQB-tRAX pipeline is adapted from the original [tRAX pipeline](https://github.com/UCSC-LoweLab/tRAX) from the Lowe Lab (UCSC) to be compatible with the [Dartmouth Discovery HPC](https://rc.dartmouth.edu/discoveryhpc/). This pipeline supports the analysis of tDRs, mature-tRNAs and RNA modification for human (hg19, hg38), mouse (mm10), rat(rn6), yeast(sacCer3), and fly(dm6) genomes. This repository contains example data from the [GSE149989](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE150076) (SRA accession SRP260297). The 4 samples included are subsetted to the first 500 reads per file. Required software can be installed using a [conda environment](https://docs.conda.io/en/latest/) with the enrionment file `config.yaml`.
 
 
 
