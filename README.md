@@ -57,17 +57,17 @@ This file assigns a sample name to each sequencing file you have. If your data i
 An example of how `runfile.txt` should be formatted for single-end data:
 ```plaintext
 sample1 sample1_1.fastq.gz
-sample2	sample2_1.fastq.gz
-sample3	sample3_1.fastq.gz
-sample4	sample4_1.fastq.gz
+sample2 sample2_1.fastq.gz
+sample3 sample3_1.fastq.gz
+sample4 sample4_1.fastq.gz
 ```
 
 An example of how `runfile.txt` should be formatted for paired-end data
 ```plaintext
 sample1 sample1_1.fastq.gz sample1_2.fastq.gz
-sample2	sample2_1.fastq.gz sample2_2.fastq.gz
-sample3	sample3_1.fastq.gz sample3_2.fastq.gz
-sample4	sample4_1.fastq.gz sample4_2.fastq.gz
+sample2 sample2_1.fastq.gz sample2_2.fastq.gz
+sample3 sample3_1.fastq.gz sample3_2.fastq.gz
+sample4 sample4_1.fastq.gz sample4_2.fastq.gz
 ```
 2. A replicate file `repfile.txt`
 
