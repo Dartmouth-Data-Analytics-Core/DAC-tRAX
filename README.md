@@ -28,7 +28,7 @@ To get started with the tRAX pipeline, clone this repository into your working d
 
 ``` bash
 # Run from within your working directory
-git clone https://github.com/Dartmouth-Data-Analytics-Core/tRAX
+git clone https://github.com/Dartmouth-Data-Analytics-Core/DAC-tRAX
 ```
 
 After successful repo cloning, you should have a folder called `code`, `example_data`, and three bash scripts
