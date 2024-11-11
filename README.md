@@ -17,9 +17,9 @@ The CQB-tRAX pipeline is adapted from the original [tRAX pipeline](https://githu
 
 ## Summary
 The CQB-tRAX pipeline consists of three major steps implemented by 3 SLURM job scripts:
-1. Database building
-2. Adapter trimming with [CutAdapt](https://cutadapt.readthedocs.io/en/stable/) or [SeqPrep](https://github.com/jstjohn/SeqPrep)
-3. Mapping with [Bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and analysis with custom python and R scripts
+**1.** Database building
+**2.** Adapter trimming with [CutAdapt](https://cutadapt.readthedocs.io/en/stable/) or [SeqPrep](https://github.com/jstjohn/SeqPrep)
+**3.** Mapping with [Bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and analysis with custom python and R scripts
 
 To run this pipeline you will need raw fastq files (either single or paired-end), a file outlining sample names (runfile.txt), a file outlining replicate information (repfie.txt) and a file specifying comparisons for diferntial expression analysis (design.txt)
 
