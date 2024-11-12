@@ -17,7 +17,7 @@ The CQB-tRAX pipeline is adapted from the original [tRAX pipeline](https://githu
 
 Software installation can be achieved by building the conda environment with the following command:
 ``` bash
-conda env create -f config.yaml
+conda env create -f trax_env.yaml
 ```
 
 ## Summary
