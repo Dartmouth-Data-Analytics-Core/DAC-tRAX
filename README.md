@@ -283,7 +283,7 @@ Output read alignments that do not have an associated gene feature into BAM file
 `--cores`
 Number of processing cores to be used (default = 8)
 
-To add additional parameters: edit the python call by appending a space followed by a "\"
+To add additional parameters: edit the python call by appending a space followed by a backslash
 then return a newline and add the flag you desire. An example of this can be seen below. 
 
 ```bash
