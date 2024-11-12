@@ -109,7 +109,7 @@ A blank text editor window will open. You can now add your text according to the
 
 # Implementation
 ## Database building
-The first step of the tRAX pipeline is building a tRNA database using files from gtRNAdb and genome assemblies. Currently, the tRAX pipeline supports human (hg19, hg19mito, mg38, hg38mito), mouse (mm10, mm10mito), rat (rn6), yeast(sacCer3), and fly (dm6). To run this script, you will need to edit two variables (required) as well as edit SBATCH header parameters (optional.)
+The first step of the tRAX pipeline is building a tRNA database using files from [gtRNAdb](https://gtrnadb.ucsc.edu) and genome assemblies. Currently, the tRAX pipeline supports human (hg19, hg19mito, mg38, hg38mito), mouse (mm10, mm10mito), rat (rn6), yeast(sacCer3), and fly (dm6). To run this script, you will need to edit two variables (required) as well as edit SBATCH header parameters (optional.)
 
 Parameters you can opt to change: Within the SBATCH headers, you can provide a job name, update your email and email notification preferences to notify you when a job starts, ends, or fails. 
 
