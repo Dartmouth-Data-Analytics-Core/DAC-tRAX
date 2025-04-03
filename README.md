@@ -1,5 +1,5 @@
 # Dartmouth CQB-tRAX Pipeline
-Pipeline dapted from the Lowe Lab (UCSC) for analyses of tRNA-derived small RNAs (tDRs), mature tRNAs, and inference of RNA modification from high-throughput sequencing. 
+Pipeline for analyses of tRNA-derived small RNAs (tDRs), mature tRNAs, and inference of RNA modification from high-throughput sequencing. 
 
 # Table of Contents
 - [Introduction](#introduction)
