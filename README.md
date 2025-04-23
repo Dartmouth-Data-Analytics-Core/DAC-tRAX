@@ -119,6 +119,15 @@ WORKINGDIR="/path/to/my/workingdir/"
 GENOME="hg38"
 ```
 
+To edit, these variables, you can use nano
+
+```bash
+nano 001_MAKE_DATABASE.bash
+
+# Navigate to the variable assignment lines and edit
+# To exit nano, hit control + X, then enter twice
+```
+
 Example of an INCORRECT variable assignment
 ```bash
 WORKINGDIR = path/to/my/working/dir
