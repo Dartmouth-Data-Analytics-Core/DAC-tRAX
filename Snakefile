@@ -1,0 +1,148 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# GDSC-tRAX v2 Pipeline
+# 
+# Authors: Mike Martinez
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# SET GLOBAL SCOPE PYTHON VARIABLES (EXECUTED BEFORE SNAKEMAKE)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+import pandas as pd 
+
+#----- Set config file
+configfile: "config.yaml"
+
+#----- Read in the sample data
+samples_df = pd.read_table(config["sample_txt"], delimiter = ",").set_index("Sample_ID", drop = False)
+sample_list = list(samples_df["Sample_ID"])
+genome = config["genome"]
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# SNAKEMAKE RULES
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+#----- Final Rule
+rule all:
+    input:
+        #----- Rule download_tRNA_db output
+        f"{genome}_db/genes.gtf",
+        f"{genome}_db/genome.fa",
+        f"{genome}_db/genome.fa.fai",
+        f"{genome}_db/{genome}-tRNAs.fa",
+        f"{genome}_db/{genome}-tRNAs.bed",
+        f"{genome}_db/{genome}-tRNAs-detailed.ss",
+        f"{genome}_db/{genome}-tRNAs-detailed.out",
+        f"{genome}_db/{genome}-tRNAs-confidence-set.ss",
+        f"{genome}_db/{genome}-tRNAs_name_map.txt",
+        f"{genome}_db/{genome}-mature-tRNAs.fa",
+        f"{genome}_db/{genome}-filtered-tRNAs.fa",
+        f"{genome}_db/db-trnatable.txt",
+        f"{genome}_db/db-trnaloci.stk",
+        f"{genome}_db/db-trnaloci.bed",
+        f"{genome}_db/db-tRNAgenome.fa",
+        f"{genome}_db/db-trnaalign.stk",
+        f"{genome}_db/db-maturetRNAs.fa",
+        f"{genome}_db/db-maturetRNAs.bed",
+        f"{genome}_db/db-locusnum.txt",
+        f"{genome}_db/db-dbinfo.txt",
+        f"{genome}_db/db-alignnum.txt",
+        f"{genome}_db/db-tRNAgenome.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.2.bt2l",
+        f"{genome}_db/db-tRNAgenome.3.bt2l",
+        f"{genome}_db/db-tRNAgenome.4.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.2.bt2l"
+    output: "done.txt"
+    conda: "trax"
+    resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
+    params:
+        genome = config["genome"],
+    shell: """
+    touch done.txt
+    
+    """
+
+#----- Rule to build tRNA database
+rule download_dtRNA_db:
+    output:
+        f"{genome}_db/genes.gtf",
+        f"{genome}_db/genome.fa",
+        f"{genome}_db/genome.fa.fai",
+        f"{genome}_db/{genome}-tRNAs.fa",
+        f"{genome}_db/{genome}-tRNAs.bed",
+        f"{genome}_db/{genome}-tRNAs-detailed.ss",
+        f"{genome}_db/{genome}-tRNAs-detailed.out",
+        f"{genome}_db/{genome}-tRNAs-confidence-set.ss",
+        f"{genome}_db/{genome}-tRNAs_name_map.txt",
+        f"{genome}_db/{genome}-mature-tRNAs.fa",
+        f"{genome}_db/{genome}-filtered-tRNAs.fa",
+        f"{genome}_db/db-trnatable.txt",
+        f"{genome}_db/db-trnaloci.stk",
+        f"{genome}_db/db-trnaloci.bed",
+        f"{genome}_db/db-tRNAgenome.fa",
+        f"{genome}_db/db-trnaalign.stk",
+        f"{genome}_db/db-maturetRNAs.fa",
+        f"{genome}_db/db-maturetRNAs.bed",
+        f"{genome}_db/db-locusnum.txt",
+        f"{genome}_db/db-dbinfo.txt",
+        f"{genome}_db/db-alignnum.txt",
+        f"{genome}_db/db-tRNAgenome.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.2.bt2l",
+        f"{genome}_db/db-tRNAgenome.3.bt2l",
+        f"{genome}_db/db-tRNAgenome.4.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.2.bt2l"
+    conda: "trax_env"
+    resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
+    params:
+        genome = config["genome"],
+        GTF_URL = config["GTF_URL"],
+        gtRNAdb_URL = config["gtRNAdb_URL"],
+        gtRNAdb_OUT = config["gtRNAdb_OUT"],
+        gtRNAdb_NAME = config["gtRNAdb_NAME"],
+        GENOME_URL = config["GENOME_URL"],
+        FA = config["FASTA"],
+        makeDB = config["makeDB"]
+    shell: """
+        #----- Run in strict mode
+        set -euo pipefail
+        
+        #----- GTF File from Ensembl
+        echo "Generating GTF"
+        wget -q -O - {params.GTF_URL} | \
+            gzip -cd | \
+            grep -v '^#' | \
+            awk '{{print \"chr\" $0;}}' | \
+            sed 's/chrMT/chrM/g' | \
+            grep -e Mt_rRNA -e Mt_tRNA -e miRNA -e misc_RNA -e rRNA -e snRNA -e snoRNA -e ribozyme -e sRNA -e scaRNA \
+            > {params.genome}_db/genes.gtf
+        echo "Generating GTF Done"
+
+        #----- Extract database files
+        echo "Generating gtRNA-db"
+        wget --no-check-certificate {params.gtRNAdb_URL} -O {params.genome}_db/tse.tar.gz
+        tar -xzvf {params.genome}_db/tse.tar.gz -C {params.genome}_db
+        rm {params.genome}_db/tse.tar.gz
+        echo "Generating gtRNAdb Done"
+
+        #----- Build fasta
+        echo "Getting fasta file"
+        if [ {params.FA} == "true" ]
+        then
+            wget -q -O - {params.GENOME_URL} | gzip -cd > {params.genome}_db/genome.fa
+        else
+            wget -q -O {params.genome}_db/genome.2bit {params.GENOME_URL}
+            twoBitToFa {params.genome}_db/genome.2bit {params.genome}_db/genome.fa
+        fi
+        echo "Fasta done."
+
+        #----- Build database
+        python {params.makeDB} \
+            --databasename={params.genome}_db/db \
+            --genomefile={params.genome}_db/genome.fa \
+            --trnascanfile={params.genome}_db/{params.gtRNAdb_OUT} \
+            --namemapfile={params.genome}_db/{params.gtRNAdb_NAME}
+    
+    """
+

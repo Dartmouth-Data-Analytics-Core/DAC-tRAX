@@ -1,0 +1,19 @@
+#----- GDSC-tRAX v2 Configuration File -----------------#     
+#-------------------------------------------------------#
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# GENERAL SETTINGS
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+sample_txt: runfile.txt
+genome: "hg38"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# tRNA DATABASE DOWNLOAD SETTINGS (NEED GENOME SPECIFIC CONFIGS)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+GTF_URL: "ftp://ftp.ensembl.org/pub/release-102/gtf/homo_sapiens/Homo_sapiens.GRCh38.102.gtf.gz"
+gtRNAdb_URL: "https://gtrnadb.ucsc.edu/GtRNAdb2/genomes/eukaryota/Hsapi38/hg38-tRNAs.tar.gz"
+gtRNAdb_OUT: "hg38-tRNAs-detailed.out"
+gtRNAdb_NAME: "hg38-tRNAs_name_map.txt"
+GENOME_URL: "https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz"
+FASTA: "true"
+makeDB: "code/01b_maketrnadb.py"
