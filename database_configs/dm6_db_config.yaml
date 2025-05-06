@@ -1,0 +1,20 @@
+#----- GDSC-tRAX v2 Configuration File -----------------#     
+#-------------------------------------------------------#
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# GENERAL SETTINGS
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+sample_txt: runfile.txt
+genome: "dm6"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# DM6 tRNA DATABASE DOWNLOAD SETTINGS (NEED GENOME SPECIFIC CONFIGS)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+GTF_URL: "ftp://ftp.ensembl.org/pub/release-102/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.28.102.gtf.gz"
+gtRNAdb_URL: "httpss://gtrnadb.ucsc.edu/genomes/eukaryota/Dmela6/dm6-tRNAs.tar.gz"
+gtRNAdb_OUT: "dm6-tRNAs-confidence-set.out"
+gtRNAdb_NAME: "dm6-tRNAs_name_map.txt"
+GENOME_URL: "https://hgdownload.soe.ucsc.edu/goldenPath/dm6/bigZips/dm6.fa.gz"
+FASTA: "true"
+makeDB: "code/new_make_database.py"
+bt2_index: "tRNAgenome"
