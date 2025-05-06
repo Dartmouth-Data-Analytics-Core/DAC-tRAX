@@ -57,7 +57,7 @@ rule all:
         f"{genome}_db/db-tRNAgenome.rev.1.bt2l",
         f"{genome}_db/db-tRNAgenome.rev.2.bt2l"
     output: "done.txt"
-    conda: "trax"
+    conda: "trax_env"
     resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
     params:
         genome = config["genome"],
