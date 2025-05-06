@@ -43,7 +43,7 @@ function db_builder() {
         gtRNAdb_URL="https://gtrnadb.ucsc.edu/genomes/eukaryota/Mmusc10/mm10-tRNAs.tar.gz"
         gtRNAdb_OUT="mm10-tRNAs-confidence-set.out"
         gtRNAdb_NAME="mm10-tRNAs_name_map.txt"
-        GENOME_URL="httpss://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.2bit"
+        GENOME_URL="https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.2bit"
         FASTA=false
     elif test "${1}" = "mm10mito"; then
         GTF_URL="ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz"

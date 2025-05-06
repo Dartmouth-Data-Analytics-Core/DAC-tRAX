@@ -28,6 +28,7 @@ snakemake -s database_Snakefile.smk \
     --use-conda \
     --conda-frontend conda \
     --conda-prefix /dartfs/rc/nosnapshots/G/GMBSR_refs/envs/DAC-RNAseq-pipeline \
+    --configfile database_configs/mm10_db_config.yaml \
     --rerun-incomplete \
     --keep-going \
     --cores 1

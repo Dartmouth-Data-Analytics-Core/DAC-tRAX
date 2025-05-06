@@ -11,7 +11,7 @@
 import pandas as pd 
 
 #----- Set config file
-configfile: "config.yaml"
+#configfile: "database_configs/hg38_db"
 
 #----- Read in the sample data
 samples_df = pd.read_table(config["sample_txt"], delimiter = ",").set_index("Sample_ID", drop = False)
