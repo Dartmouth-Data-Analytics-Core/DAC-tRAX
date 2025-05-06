@@ -25,7 +25,6 @@ genome = config["genome"]
 #----- Final Rule
 rule all:
     input:
-        #----- Rule download_tRNA_db output
         f"{genome}_db/genes.gtf",
         f"{genome}_db/genome.fa",
         f"{genome}_db/genome.fa.fai",
@@ -40,13 +39,17 @@ rule all:
         f"{genome}_db/db-trnatable.txt",
         f"{genome}_db/db-trnaloci.stk",
         f"{genome}_db/db-trnaloci.bed",
-        f"{genome}_db/db-tRNAgenome.fa",
         f"{genome}_db/db-trnaalign.stk",
         f"{genome}_db/db-maturetRNAs.fa",
         f"{genome}_db/db-maturetRNAs.bed",
         f"{genome}_db/db-locusnum.txt",
         f"{genome}_db/db-dbinfo.txt",
         f"{genome}_db/db-alignnum.txt",
+
+        #----- rule concat_tRNAs outputs
+        f"{genome}_db/db-tRNAgenome.fa",
+
+        #----- Rule tRNA bowtiw index outputs
         f"{genome}_db/db-tRNAgenome.1.bt2l",
         f"{genome}_db/db-tRNAgenome.2.bt2l",
         f"{genome}_db/db-tRNAgenome.3.bt2l",
@@ -64,7 +67,7 @@ rule all:
     """
 
 #----- Rule to build tRNA database
-rule download_dtRNA_db:
+rule generate_gtRNA_db:
     output:
         f"{genome}_db/genes.gtf",
         f"{genome}_db/genome.fa",
@@ -80,19 +83,12 @@ rule download_dtRNA_db:
         f"{genome}_db/db-trnatable.txt",
         f"{genome}_db/db-trnaloci.stk",
         f"{genome}_db/db-trnaloci.bed",
-        f"{genome}_db/db-tRNAgenome.fa",
         f"{genome}_db/db-trnaalign.stk",
         f"{genome}_db/db-maturetRNAs.fa",
         f"{genome}_db/db-maturetRNAs.bed",
         f"{genome}_db/db-locusnum.txt",
         f"{genome}_db/db-dbinfo.txt",
-        f"{genome}_db/db-alignnum.txt",
-        f"{genome}_db/db-tRNAgenome.1.bt2l",
-        f"{genome}_db/db-tRNAgenome.2.bt2l",
-        f"{genome}_db/db-tRNAgenome.3.bt2l",
-        f"{genome}_db/db-tRNAgenome.4.bt2l",
-        f"{genome}_db/db-tRNAgenome.rev.1.bt2l",
-        f"{genome}_db/db-tRNAgenome.rev.2.bt2l"
+        f"{genome}_db/db-alignnum.txt"
     conda: "trax_env"
     resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
     params:
@@ -145,4 +141,49 @@ rule download_dtRNA_db:
             --namemapfile={params.genome}_db/{params.gtRNAdb_NAME}
     
     """
+
+#----- Rule to merge tRNA files
+rule concat_tRNAs:
+    input:
+        maturetRNAs = f"{genome}_db/db-maturetRNAs.fa",
+        genome = f"{genome}_db/genome.fa",
+    output:
+        tRNAgenome = f"{genome}_db/db-tRNAgenome.fa"
+    conda: "trax_env"
+    resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
+    shell: """
+        
+        #----- Concatenate mature tRNAs and full genome
+        cat {input.maturetRNAs} {input.genome} > {output.tRNAgenome}
+    
+    """
+
+#----- Rule to generate bowtie2 index for tRNA genome
+rule tRNA_bt2_index:
+    input:
+        tRNAgenome = f"{genome}_db/db-tRNAgenome.fa"
+    output:
+        f"{genome}_db/db-tRNAgenome.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.2.bt2l",
+        f"{genome}_db/db-tRNAgenome.3.bt2l",
+        f"{genome}_db/db-tRNAgenome.4.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.1.bt2l",
+        f"{genome}_db/db-tRNAgenome.rev.2.bt2l"
+    conda: "trax_env"
+    resources: cpus="10", maxtime="2:00:00", mem_mb="60gb"
+    params:
+        indexName = config["bt2_index"],
+        genome = config["genome"]
+    shell: """
+    
+        #----- Run bowtie2 index
+        bowtie2-build \
+            {input.tRNAgenome} \
+            {params.genome}_db/db-{params.indexName} \
+            -p {resources.cpus}
+    
+    """
+
+
+    
 
