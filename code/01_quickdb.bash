@@ -51,7 +51,7 @@ function db_builder() {
         downloaddb=true
     elif test "${1}" = "dm6"; then
         GTF_URL="ftp://ftp.ensembl.org/pub/release-102/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.28.102.gtf.gz"
-        gtRNAdb_URL="httpss://gtrnadb.ucsc.edu/genomes/eukaryota/Dmela6/dm6-tRNAs.tar.gz"
+        gtRNAdb_URL="https://gtrnadb.ucsc.edu/genomes/eukaryota/Dmela6/dm6-tRNAs.tar.gz"
         gtRNAdb_OUT="dm6-tRNAs-confidence-set.out"
         gtRNAdb_NAME="dm6-tRNAs_name_map.txt"
         GENOME_URL="https://hgdownload.soe.ucsc.edu/goldenPath/dm6/bigZips/dm6.fa.gz"
